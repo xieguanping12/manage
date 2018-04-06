@@ -24,6 +24,7 @@
   "homepage": "https://github.com/xieguanping12/manage#readme",
   "dependencies": {
     "bootstrap": "^3.3.7",
+    "ejs": "^2.5.7",
     "express": "^4.0.0"
   }
 }
