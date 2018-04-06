@@ -26,6 +26,9 @@
     "bootstrap": "^3.3.7",
     "ejs": "^2.5.7",
     "express": "^4.0.0",
-    "mongoose": "^4.10.0"
+    "mongoose": "^4.10.0",
+    "mongoose-validator": "^1.3.0",
+    "path": "^0.12.7",
+    "validator": "^7.1.0"
   }
 }

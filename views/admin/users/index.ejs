@@ -1,1 +1,21 @@
-this is users index
+<%- include('../../layouts/header') %>
+<div class="panel panel-default">
+    <!-- Default panel contents -->
+    <div class="panel-heading"><p><%= title %></p></div>
+    <!-- Table -->
+    <table class="table">
+        <tr>
+            <th>用户名</th>
+            <th>密码</th>
+            <th>邮箱</th>
+        </tr>
+        <% users.forEach(function (user) { %>
+        <tr>
+            <td><%= user.name %></td>
+            <td><%= user.passwd %></td>
+            <td><%= user.email %></td>
+        </tr>
+        <% }); %>
+    </table>
+</div>
+<%- include('../../layouts/footer') %>

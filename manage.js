@@ -14,12 +14,10 @@ db = require('./lib/common/mongoose');//连接mongodb数据库
 let admin = require('./routers/admin');
 let api = require('./routers/api');
 let home = require('./routers/home');
-let users = require('./routers/users');
 
 app.use('/admin', admin);
 app.use('/api', api);
 app.use('/', home);
-app.use('/users', users);
 
 app.listen(3000);
 console.log('http://localhost:3000 server started');
