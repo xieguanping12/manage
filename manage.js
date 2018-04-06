@@ -4,6 +4,7 @@ let path = require('path');
 
 app = express(); //创建一个express应用
 
+app.use(express.static('public'));//前端资源文件根目录
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');//设置模板引擎ejs
 
