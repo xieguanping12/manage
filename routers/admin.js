@@ -39,7 +39,7 @@ router.get('/user/update', function (req, res) {
 });
 
 router.post('/user/update', function (req, res) {
-    _id = req.query._id;
+    _id = req.body._id;
     Users.findById(_id, function (err, data) {
         if (data) {
             updateData = {
@@ -49,9 +49,9 @@ router.post('/user/update', function (req, res) {
             };
             Users.where({_id: _id}).update({$set: updateData}, function (err, data) {
                 if (err) {
-                    res.json({"error": true, "message": err.message});
+                    res.json({"code": -1, "status": "fail", "message": "更新失败"});
                 } else {
-                    res.redirect('/admin/user/list');
+                    res.json({"code": 0, "status": "ok", "message": "更新成功"});
                 }
             });
         } else {
