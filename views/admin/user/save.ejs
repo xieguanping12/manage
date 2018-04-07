@@ -12,7 +12,7 @@
     <% } %>
     <div class="form-group">
         <label for="name">用户名</label>
-        <input type="text" id="name" name="name" value="<% if (user) { %> <%= user.name %> <% } %>" class="form-control"
+        <input type="text" id="name" name="name" value="<% if (user) { %><%= user.name %><% } %>" class="form-control"
                placeholder="用户名">
     </div>
     <div class="form-group">
@@ -22,11 +22,11 @@
     </div>
     <div class="form-group">
         <label for="email">邮箱</label>
-        <input type="email" id="email" name="email" value="<% if (user) { %> <%= user.email %> <% } %>"
+        <input type="email" id="email" name="email" value="<% if (user) { %><%= user.email %><% } %>"
                class="form-control" placeholder="邮箱">
     </div>
     <button type="submit" class="btn btn-default" id="save-user-btn"
-            data-user-id="<% if (user) { %> <%= user._id %> <% } %>">提交
+            data-user-id="<% if (user) { %><%= user._id %><% } %>">提交
     </button>
 </form>
 <div><a href="/admin/user/list">用户列表</a></div>
