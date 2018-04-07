@@ -2,6 +2,7 @@
 let express = require('express');
 let router = express.Router();
 let md5 = require('md5');
+let trim = require('trim');
 
 let Users = require('../models/Users');
 
@@ -47,9 +48,9 @@ router.post('/user/save', function (req, res) {
         Users.findById(_id, function (err, data) {
             if (data) {
                 updateData = {
-                    name: req.body.name,
-                    passwd: md5(req.body.passwd),
-                    email: req.body.email
+                    name: trim(req.body.name),
+                    passwd: md5(trim(req.body.passwd)),
+                    email: trim(req.body.email)
                 };
                 Users.where({_id: _id}).update({$set: updateData}, function (err, data) {
                     if (err) {
@@ -63,8 +64,8 @@ router.post('/user/save', function (req, res) {
             }
         });
     } else {
-        let name = req.body.name;
-        let email = req.body.email;
+        let name = trim(req.body.name);
+        let email = trim(req.body.email);
         Users.findOne({name: name}, function (err, data) {
             if (data) {
                 res.json({"code": -1, "status": "fail", "message": name + "的用户名已存在,不可重复，请重新创建"});
@@ -77,7 +78,7 @@ router.post('/user/save', function (req, res) {
         });
         user = new Users();
         user.name = name;
-        user.passwd = md5(req.body.passwd);
+        user.passwd = md5(trim(req.body.passwd));
         user.type = 1;
         user.email = email;
         user.createtime = Date.now();
