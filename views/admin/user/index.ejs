@@ -5,13 +5,15 @@
     <!-- Table -->
     <table class="table">
         <tr>
+            <th>ID</th>
             <th>用户名</th>
             <th>密码</th>
             <th>邮箱</th>
         </tr>
         <% users.forEach(function (user) { %>
         <tr>
-            <td><%= user.name %></td>
+            <td><a href="/admin/user?_id=<%= user._id%>"><%= user._id%></a></td>
+            <td><%= user.name%></td>
             <td><%= user.passwd %></td>
             <td><%= user.email %></td>
         </tr>

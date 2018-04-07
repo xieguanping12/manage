@@ -1,0 +1,12 @@
+<%- include('../../layouts/header')%>
+<div class="panel panel-default">
+    <div class="panel-heading"><%= title%></div>
+    <div class="panel-body">
+        <p>ID：<%=user._id%></p>
+        <p>姓名：<%=user.name%></p>
+        <p>密码：<%=user.passwd%></p>
+        <p>邮箱：<%=user.email%></p>
+    </div>
+</div>
+<div><a href="/admin/user/list">用户列表</a></div>
+<%- include('../../layouts/footer')%>
