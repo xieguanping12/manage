@@ -9,6 +9,7 @@
             <th>用户名</th>
             <th>密码</th>
             <th>邮箱</th>
+            <th>操作</th>
         </tr>
         <% users.forEach(function (user) { %>
         <tr>
@@ -16,6 +17,10 @@
             <td><%= user.name%></td>
             <td><%= user.passwd %></td>
             <td><%= user.email %></td>
+            <td>
+                <button><a href="/admin/user/update?_id=<%= user._id%>">编辑</a></button>
+                <button><a href="/admin/user/delete?_id=<%= user._id%>">删除</a></button>
+            </td>
         </tr>
         <% }); %>
     </table>
