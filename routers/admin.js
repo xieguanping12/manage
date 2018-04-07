@@ -60,4 +60,14 @@ router.post('/user/update', function (req, res) {
     });
 });
 
+router.post('/user/delete', function (req, res) {
+    _id = req.body._id;
+    Users.findById(_id).remove(function (err, data) {
+        if (err) {
+            res.json({"code": -1, "status": "fail", "message": "删除失败"})
+        }
+        res.json({"code": 0, "status": "ok", "message": "删除成功"});
+    });
+});
+
 module.exports = router;
