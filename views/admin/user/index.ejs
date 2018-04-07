@@ -1,8 +1,9 @@
 <%- include('../../layouts/header') %>
-<div class="panel panel-default">
+<div class="panel panel-info">
     <!-- Default panel contents -->
     <div class="panel-heading"><p><%= title %></p></div>
     <!-- Table -->
+    <a href="/admin/user/save" class="btn btn-primary">添加用户</a>
     <table class="table">
         <tr>
             <th>ID</th>
@@ -18,7 +19,7 @@
             <td><%= user.passwd %></td>
             <td><%= user.email %></td>
             <td>
-                <button><a href="/admin/user/update?_id=<%= user._id %>">编辑</a></button>
+                <button><a href="/admin/user/save?_id=<%= user._id %>">编辑</a></button>
                 <button id="delete-user-btn" data-user-id="<%= user._id %>" type="submit">删除</button>
             </td>
         </tr>

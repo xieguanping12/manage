@@ -27,37 +27,69 @@ router.get('/user', function (req, res) {
     });
 });
 
-router.get('/user/update', function (req, res) {
+router.get('/user/save', function (req, res) {
     _id = req.query._id;
-    Users.findById(_id, function (err, data) {
-        if (data) {
-            res.render('admin/user/update', {title: "修改用户", user: data});
-        } else {
-            res.json({"error": true, "message": "用户不存在"});
-        }
-    });
+    if (_id) {
+        Users.findById(_id, function (err, data) {
+            title = '修改用户';
+        });
+        res.render('admin/user/save', {title: title, user: data});
+    } else {
+        title = '添加用户';
+        res.render('admin/user/save', {title: title, user: ''});
+    }
 });
 
-router.post('/user/update', function (req, res) {
+router.post('/user/save', function (req, res) {
     _id = req.body._id;
-    Users.findById(_id, function (err, data) {
-        if (data) {
-            updateData = {
-                name: req.body.name,
-                passwd: req.body.passwd,
-                email: req.body.email
-            };
-            Users.where({_id: _id}).update({$set: updateData}, function (err, data) {
-                if (err) {
-                    res.json({"code": -1, "status": "fail", "message": "更新失败"});
-                } else {
-                    res.json({"code": 0, "status": "ok", "message": "更新成功"});
-                }
-            });
-        } else {
-            res.json({"error": true, "message": "用户不存在"});
-        }
-    });
+    if (_id) {
+        Users.findById(_id, function (err, data) {
+            if (data) {
+                updateData = {
+                    name: req.body.name,
+                    passwd: req.body.passwd,
+                    email: req.body.email
+                };
+                Users.where({_id: _id}).update({$set: updateData}, function (err, data) {
+                    if (err) {
+                        res.json({"code": -1, "status": "fail", "message": "更新失败"});
+                    } else {
+                        res.json({"code": 0, "status": "ok", "message": "更新成功"});
+                    }
+                });
+            } else {
+                res.json({"error": true, "message": "用户不存在"});
+            }
+        });
+    } else {
+        let name = req.body.name;
+        let email = req.body.email;
+        Users.findOne({name: name}, function (err, data) {
+            if (data) {
+                res.json({"code": -1, "status": "fail", "message": name + "的用户名已存在,不可重复，请重新创建"});
+            }
+        });
+        Users.findOne({email: email}, function (err, data) {
+            if (data) {
+                res.json({"code": -1, "status": "fail", "message": email + "的邮箱地址已存在,不可重复，请重新创建"});
+            }
+        });
+        user = new Users();
+        user.name = name;
+        user.passwd = req.body.passwd;
+        user.type = 1;
+        user.email = email;
+        user.createtime = Date.now();
+        user.updatetime = Date.now()
+        user.save(function (err, data) {
+            if (err) {
+                console.log(err);
+                res.json({"code": -1, "status": "fail", "message": "创建用户失败"});
+            } else {
+                res.json({"code": 0, "status": "ok", "message": "创建用户成功"});
+            }
+        });
+    }
 });
 
 router.post('/user/delete', function (req, res) {

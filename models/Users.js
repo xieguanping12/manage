@@ -12,7 +12,7 @@ let emailValidator = [
 let nameValidator = [
     validate({
         validator: 'isLength',
-        arguments: [5, 12],
+        arguments: [1, 12],
         message: '用户名必须在 {ARGS[0]} - {ARGS[1]} 之间'
     }),
     validate({
@@ -25,7 +25,7 @@ let nameValidator = [
 let Users = new Schema({
     name: {type: String, required: true, unique: true, validate: nameValidator},
     passwd: {type: String, required: true},
-    type: {type: Number, require: true, default: 0},//0-变通用户 1-管理员
+    type: {type: Number, require: true, default: 0},//0-普通用户 1-管理员
     email: {type: String, required: true, unique: true, validate: emailValidator},
     createtime: {type: Date, required: true, default: Date.now()},
     updatetime: {type: Date, default: Date.now()}
