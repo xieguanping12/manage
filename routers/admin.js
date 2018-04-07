@@ -1,6 +1,7 @@
 //后台管理路由
 let express = require('express');
 let router = express.Router();
+let md5 = require('md5');
 
 let Users = require('../models/Users');
 
@@ -32,8 +33,8 @@ router.get('/user/save', function (req, res) {
     if (_id) {
         Users.findById(_id, function (err, data) {
             title = '修改用户';
+            res.render('admin/user/save', {title: title, user: data});
         });
-        res.render('admin/user/save', {title: title, user: data});
     } else {
         title = '添加用户';
         res.render('admin/user/save', {title: title, user: ''});
@@ -47,7 +48,7 @@ router.post('/user/save', function (req, res) {
             if (data) {
                 updateData = {
                     name: req.body.name,
-                    passwd: req.body.passwd,
+                    passwd: md5(req.body.passwd),
                     email: req.body.email
                 };
                 Users.where({_id: _id}).update({$set: updateData}, function (err, data) {
@@ -76,7 +77,7 @@ router.post('/user/save', function (req, res) {
         });
         user = new Users();
         user.name = name;
-        user.passwd = req.body.passwd;
+        user.passwd = md5(req.body.passwd);
         user.type = 1;
         user.email = email;
         user.createtime = Date.now();
